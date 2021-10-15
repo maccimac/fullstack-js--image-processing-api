@@ -2,7 +2,7 @@
   "name": "image-processing-api",
   "version": "1.0.0",
   "description": "Regardless of if you have submitted your project via Workspace, an uploaded zip folder, or git repository, a README is required.",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "npx tsc"
