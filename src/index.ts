@@ -5,7 +5,7 @@ const port = 3000
 
 import { m_router } from './routes'
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
     res.send(`
     <h1>Welcome to Image Processing API</h1>
     Sample endpoint:
@@ -16,10 +16,15 @@ app.get('/api', (req, res) => {
     res.send(`
     This is an image resizing app
     `)
-})
+})*/
 
-app.use('/api', m_router)
+app.use('/', m_router)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
+
+})
+
+app.get('/address', (req, res) => {
+    /*console.log(app.address())*/
 })

@@ -12,6 +12,13 @@ exports.m_router.get('/api', function (req, res) {
     res.send('Init page');
 });
 exports.m_router.get('/write', function (req, res) {
-    (0, m_fs_1.writeNewFile)('new title');
+    (0, m_fs_1.writeNewFile)('new-title');
+    res.send('Writing file');
 });
-// m_router.post('/findMember', findThis)
+exports.m_router.get('/resize/:fileName', function (req, res) {
+    var m_file = req.params.fileName; // :fileName
+    var fileSize = req.query.size; // ?file=fiesize
+    console.log(m_file);
+    console.log(fileSize);
+    res.send('Resizing...');
+});
