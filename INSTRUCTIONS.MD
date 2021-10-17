@@ -1,3 +1,11 @@
+TODO:
+  [] Install Sharp
+  [] Install fs
+      ↳ Test fs
+  [] Create Jasmine Tests
+
+
+
 LINKS / REFERENCES:
 
   Project Specification - Image Processing API
@@ -27,8 +35,8 @@ INSTRUCTIONS
 
   Configure your middleware.
     You have quite a few dependencies that all need to work together. Sometimes it's easiest to write some simple js functions to test that all of your dependencies are working together before you begin adding any sort of functionality.
-      - Does your TypeScript compile?
-      - Do your Eslint and Prettier scripts work?
+      ✓ - Does your TypeScript compile?
+      ✓ - Do your Eslint and Prettier scripts work?
       - Are you able to write and pass a basic unit test?
 
   Set up your server and create an API endpoint.
