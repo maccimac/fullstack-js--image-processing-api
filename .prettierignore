@@ -1,0 +1,9 @@
+# Ignore everything:
+*
+
+
+# Except src folder:
+!src/
+
+# Ignore assets:
+src/assets/
