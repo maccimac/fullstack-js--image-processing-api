@@ -1,5 +1,4 @@
 import express from 'express'
-import { writeNewFile } from './m_fs'
 import sharp from 'sharp'
 import fs from 'fs'
 import { promises as fsPromises } from 'fs'
@@ -10,45 +9,56 @@ m_router.get('/init', (req: express.Request, res: express.Response) => {
     res.send('Init page')
 })
 
-m_router.get('/write', (req: express.Request, res: express.Response) => {
-    writeNewFile('new-title')
-    res.send('Writing file')
-})
+let msgReturn: string = 'Welcome to image processing app'
+let imgExists: boolean = false
 
-m_router.get(
-    '/images/:fileName',
-    (req: express.Request, res: express.Response) => {
-        const m_file = req.params.fileName // :fileName
-        const m_width = req.query.width // ?file=fiesize
-        const m_height = req.query.height // ?file=fiesize
-        const srcImg = `./src/assets/full/${m_file}.jpg`
-        const targetImg = `./src/assets/thumb/${m_file}-${m_width}x${m_height}.jpg`
+let mFile: string = ''
+let mWidth: string | undefined = ''
+let mHeight: string | undefined = ''
+let srcImg: string = ''
+let targetImg: string = ''
 
-        try {
-          if(!m_width || !m_height){
-            res.send(`Params width and height are required. Follow this template:
-              localhost:3000/api/images/?filename=newfile&height=200&width=300
-             `)
-          }else if(fs.existsSync(targetImg)){
-            res.sendfile(targetImg)
-          }else if (fs.existsSync(srcImg) && m_width) {
-              sharp(srcImg)
-                .resize(Number(m_width), Number(m_height))
-                .toFile(targetImg, function(err) {
-                  if(err){
-                    res.send(err)
-                  }else{
-                    res.sendfile(targetImg)
-                  }
-                });
 
-          }else{
-            res.send(`${m_file} DOES NOT exist!`)
-          }
-        } catch(err) {
-          console.error(err)
-          res.send(err)
-        }
+const middlewareResize = (req: express.Request, res: express.Response): void => {
+    const mHost = req.get('host')
 
+    mFile = req.params.fileName // :fileName
+    mWidth = req.query.width as string
+    mHeight = req.query.height as string
+    srcImg = `${__dirname}/assets/full/${mFile}.jpg`
+    targetImg = `${__dirname}/assets/thumb/${mFile}-${mWidth}x${mHeight}.jpg`
+    console.log(!mWidth || !mHeight)
+
+    try {
+      if(!mWidth || !mHeight){
+        res.send(`Params width and height are required. Follow this template:
+          http://localhost:3000/api/images/beach?height=200&width=300
+         `)
+      }else if (fs.existsSync(srcImg)) {
+          sharp(srcImg)
+            .resize(Number(mWidth), Number(mHeight))
+            .toFile(targetImg, function(err) {
+              if(err){
+                console.log(err)
+                res.send('Error')
+              }else{
+                res.sendFile(targetImg)
+              }
+            });
+      }else{
+        res.send(`${mFile} DOES NOT exist!`)
+      }
+    } catch(err) {
+      console.error(err)
     }
-)
+}
+
+m_router.get('/images/:fileName', middlewareResize, (req, res) =>{
+
+  console.log({
+    mFile,
+    mWidth, mHeight,
+    srcImg, targetImg
+  })
+
+})

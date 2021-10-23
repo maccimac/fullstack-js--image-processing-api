@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     res.send(`
     <h1>Welcome to Image Processing API</h1>
     Sample endpoint:
-    <strong><code>'localhost:3000/api/images/?filename=newfile&height=200&width=300'</code></strong>
+    <strong><code>'http://localhost:3000/api/images/beach?height=200&width=300'</code></strong>
     ` +  msgInstruction)
 })
 app.get('/api', (req, res) => {
