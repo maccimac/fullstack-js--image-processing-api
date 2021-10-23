@@ -1,9 +1,11 @@
-// NOTE: https://expressjs.com/en/starter/hello-world.html
 import express from 'express'
+import { m_router } from './routes'
+
 const app = express()
 const port = 3000
 
-import { m_router } from './routes'
+export const dirName = __dirname
+
 
 const msgInstruction = `
     <p>Available images names are:
@@ -30,6 +32,7 @@ app.get('/api', (req, res) => {
 app.use('/api', m_router)
 
 app.listen(port, () => {
+    console.log(dirName)
     console.log(`Example app listening at http://localhost:${port}`)
 
 })

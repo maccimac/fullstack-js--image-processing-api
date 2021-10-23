@@ -35,30 +35,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.writeNewFile = void 0;
-var fs_1 = require("fs");
-/*
-    r - allows for the reading of a file
-    r+ - allows for the reading and writing of a file, will overwrite content in the file
-    w+ - allows for the reading and writing of a file, will create a file if it does not yet exist
-    a - allows for reading and writing of a file and will append new content to the end of the file, not overwriting current content
-    a+ - allows for reading and writing of a file, will create a file if it does not yet exist, and will append new content to the end of the file, not overwriting current content
-*/
-/*
-    const writeData = async () => {
-    const myFile = await fsPromises.open('myfile.txt', a+);
-    await myFile.write('add text');
-    }
- */
-var writeNewFile = function (title) { return __awaiter(void 0, void 0, void 0, function () {
+// import middlewareResize from "../routes";
+var fs_1 = __importDefault(require("fs"));
+var index_1 = require("../index");
+it("Should have the new file", function () { return __awaiter(void 0, void 0, void 0, function () {
+    var fileName, srcImg, hasNewFile;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, fs_1.promises.open("./src/files/" + title + ".txt", 'a+')];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
+        fileName = 'beach';
+        srcImg = index_1.dirName + "/assets/full/" + fileName + ".jpg";
+        console.log(srcImg);
+        hasNewFile = fs_1.default.existsSync(srcImg);
+        expect(hasNewFile).toEqual(true);
+        return [2 /*return*/];
     });
-}); };
-exports.writeNewFile = writeNewFile;
+}); });
+/*it("should get basic data on the country canada", async () => {
+  const data = await countries.getCountry('canada');
+  expect(data).toEqual({
+    capital: 'Ottawa',
+    region: 'Americas',
+  });
+});
+
+
+it("should get capitals of NAFTA countries", async () => {
+  countries.getRegionCountries('nafta')
+  const data = await countries.getRegionCapitals('nafta');
+  expect(data).toEqual([
+    'Ottawa', 'Mexico City', 'Washington, D.C.'
+  ]);
+});*/

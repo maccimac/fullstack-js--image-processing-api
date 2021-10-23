@@ -6,7 +6,10 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "npx tsc",
-    "format": "prettier --config .prettierrc '.' --write"
+    "format": "prettier --config .prettierrc '.' --write",
+    "jasmine": "jasmine",
+    "test": "npm run build && npm run bundle && npm run jasmine",
+    "bundle": "copyfiles -u 1 src/assets/full/*.jpg build/"
   },
   "repository": {
     "type": "git",
@@ -20,21 +23,25 @@
   },
   "homepage": "https://github.com/maccimac/fullstack-js--image-processing-api#readme",
   "dependencies": {
-    "@types/node": "^16.11.0",
-    "@types/sharp": "^0.29.2",
-    "eslint": "^8.0.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "express": "^4.17.1",
-    "file-system": "^2.2.2",
-    "prettier": "^2.4.1",
-    "sharp": "^0.29.1",
-    "ts-node": "^10.3.0"
+    "file-system": "^2.2.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/jasmine": "^3.10.1",
+    "@types/node": "^16.11.0",
+    "@types/sharp": "^0.29.2",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "jasmine": "^3.10.0",
+    "jasmine-node": "^3.0.0",
+    "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^2.0.13",
+    "prettier": "^2.4.1",
+    "sharp": "^0.29.1",
+    "ts-node": "^10.3.0",
     "typescript": "^4.4.4"
   }
 }

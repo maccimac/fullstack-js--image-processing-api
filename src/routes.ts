@@ -18,7 +18,12 @@ let mHeight: string | undefined = ''
 let srcImg: string = ''
 let targetImg: string = ''
 
+const checkFormat = (url: string) =>{
+  const params = new URLSearchParams(url)
+  console.log({params})
+  console.log(params.get('width'))
 
+}
 const middlewareResize = (req: express.Request, res: express.Response): void => {
     const mHost = req.get('host')
 
@@ -27,7 +32,13 @@ const middlewareResize = (req: express.Request, res: express.Response): void => 
     mHeight = req.query.height as string
     srcImg = `${__dirname}/assets/full/${mFile}.jpg`
     targetImg = `${__dirname}/assets/thumb/${mFile}-${mWidth}x${mHeight}.jpg`
-    console.log(!mWidth || !mHeight)
+    // console.log(!mWidth || !mHeight)
+
+
+    const fullUrl = req.get('host') + req.originalUrl
+    // console.log(fullUrl)
+    checkFormat(fullUrl)
+
 
     try {
       if(!mWidth || !mHeight){
