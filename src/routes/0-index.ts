@@ -24,6 +24,7 @@ const checkFormat = (url: string) =>{
   console.log(params.get('width'))
 
 }
+
 const middlewareResize = (req: express.Request, res: express.Response): void => {
     const mHost = req.get('host')
 
@@ -39,11 +40,9 @@ const middlewareResize = (req: express.Request, res: express.Response): void => 
     // console.log(fullUrl)
     checkFormat(fullUrl)
 
-
-    try {
       if(!mWidth || !mHeight){
         res.send(`Params width and height are required. Follow this template:
-          http://localhost:3000/api/images/beach?height=200&width=300
+          http://localhost:3000/api/images?fileName=beach&height=200&width=300
          `)
       }else if (fs.existsSync(srcImg)) {
           sharp(srcImg)
@@ -59,9 +58,7 @@ const middlewareResize = (req: express.Request, res: express.Response): void => 
       }else{
         res.send(`${mFile} DOES NOT exist!`)
       }
-    } catch(err) {
-      console.error(err)
-    }
+
 }
 
 m_router.get('/images/:fileName', middlewareResize, (req, res) =>{
