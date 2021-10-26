@@ -1,7 +1,10 @@
-export interface QueryPayload {
+export interface Status {
   status?: string
   status_mesage?: string
-  fileName: string
+}
+
+export interface QueryPayload {
+  filename: string
   srcImg?: string
   height: number
   width: number

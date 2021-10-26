@@ -1,7 +1,7 @@
 // VALIDATE ALL QUERIES
 // Validate photo is available
 // Validate height and width are numbers
-import {QueryPayload} from './../types'
+import { QueryPayload } from './../types'
 
 const checkFormat = (url: string) =>{
   const params = new URLSearchParams(url)
@@ -10,16 +10,19 @@ const checkFormat = (url: string) =>{
   console.log(params.get('height'))
 }
 
-export const validateQueryFormat(url: string){
+export const validateQueryFormat(url: string): QueryPayload{
   const params = new URLSearchParams(url)
   console.log({params})
-  const fileName = params.get('fileName')
+  const filename = params.get('filename')
   const width = params.get('width')
   const height = params.get('height')
 
+
   return {
     status: 'success',
-    fileName:
+    filename,
+    width,
+    height
   }
 }
 

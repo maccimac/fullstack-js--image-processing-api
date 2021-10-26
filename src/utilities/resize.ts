@@ -13,7 +13,7 @@ import {QueryPayload} from './../types'
 // }
 
 export const resize(payload: QueryPayload){
-  const {fileName, srcImg, height, width} = payload
+  const {filename, srcImg, height, width} = payload
 
   const targetImg = `${dirname}/assets/thumb/${fileName}-${width}x${height}.jpg`
 
