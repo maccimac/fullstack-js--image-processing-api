@@ -47,14 +47,14 @@ var validationMiddleware = function (req, res, next) { return __awaiter(void 0, 
                 return [4 /*yield*/, (0, validate_1.validateQueryFormat)(query)];
             case 1:
                 formatCheck = _a.sent();
-                if (formatCheck.status == 'error') {
-                    res.send('error: ' + formatCheck.status_mesage);
-                }
                 return [4 /*yield*/, (0, validate_1.validateIfFileExists)(query)];
             case 2:
                 fileCheck = _a.sent();
-                if (fileCheck.status == 'error') {
-                    res.send('error: ' + fileCheck.status_mesage);
+                if (formatCheck.status == 'error') {
+                    res.send('error: ' + formatCheck.status_message);
+                }
+                else if (fileCheck.status == 'error') {
+                    res.send('error: ' + fileCheck.status_message);
                 }
                 next();
                 return [2 /*return*/];

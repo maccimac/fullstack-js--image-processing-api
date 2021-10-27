@@ -6,7 +6,7 @@ const app = express()
 const port = 3000
 
 export const dirName = __dirname
-export const samplePath = 'http://localhost:3000/api/images?filename=beach&height=200&width=300'
+export const samplePath = 'http://localhost:3000/api/images?filename=beach&height=600&width=800'
 
 app.listen(port, () => {
     console.log(dirName)

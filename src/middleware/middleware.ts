@@ -6,13 +6,11 @@ export const validationMiddleware = async (req: express.Request, res: express.Re
     const query = req.query as QueryPayload
 
     const formatCheck = await validateQueryFormat(query)
-    if (formatCheck.status == 'error'){
-      res.send('error: ' + formatCheck.status_mesage)
-    }
-
     const fileCheck = await validateIfFileExists(query)
-    if (fileCheck.status == 'error'){
-      res.send('error: ' + fileCheck.status_mesage)
+    if (formatCheck.status == 'error'){
+      res.send('error: ' + formatCheck.status_message)
+    } else if (fileCheck.status == 'error'){
+      res.send('error: ' + fileCheck.status_message)
     }
 
     next()

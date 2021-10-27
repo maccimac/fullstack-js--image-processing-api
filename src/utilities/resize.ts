@@ -5,33 +5,28 @@ import {dirName} from './../index'
 import {QueryPayload, Status} from './../types/types'
 
 
-// export const resize = (payload: QueryPayload): Status => {
-//   const {filename, srcImg, height, width} = payload
-//
-//   const targetImg = `${dirname}/assets/thumb/${fileName}-${width}x${height}.jpg`
-//
-//   try{
-//     sharp(srcImg)
-//       .resize(Number(width), Number(height))
-//       .toFile(targetImg, function(err) {
-//         if(err){
-//           console.log(err)
-//           // res.send('Error')
-//           return {
-//             status: 'error',
-//             error: err
-//           }
-//         }else{
-//           // res.sendFile(targetImg)
-//           return {
-//             status: 'success',
-//             target_image: targetImg
-//           }
-//         }
-//       })
-//
-//   }catch(err){
-//     console.error(err)
-//   }
-//
-// }
+export const resize = async (payload: QueryPayload): Promise<Status> => {
+  const {filename, height, width} = payload
+
+  const srcImg = `${dirName}/assets/full/${filename}.jpg`
+
+  const targetImg = `${dirName}/assets/thumb/${filename}-${width}x${height}.jpg`
+
+    return sharp(srcImg)
+      .resize(Number(width), Number(height))
+      .toFile(targetImg)
+      .then((data) =>{
+        console.log(data)
+        return {
+          status: 'success',
+          data: targetImg
+        }
+      })
+      .catch(err => {
+        return {
+          status: 'error',
+          status_message: err
+        }
+      })
+
+}

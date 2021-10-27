@@ -10,7 +10,7 @@ var messages_1 = require("./utilities/messages");
 var app = (0, express_1.default)();
 var port = 3000;
 exports.dirName = __dirname;
-exports.samplePath = 'http://localhost:3000/api/images?filename=beach&height=200&width=300';
+exports.samplePath = 'http://localhost:3000/api/images?filename=beach&height=600&width=800';
 app.listen(port, function () {
     console.log(exports.dirName);
     console.log("Example app listening at http://localhost:" + port);
