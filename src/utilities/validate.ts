@@ -1,30 +1,46 @@
 // VALIDATE ALL QUERIES
 // Validate photo is available
 // Validate height and width are numbers
+import fs from 'fs'
+import { promises as fsPromises } from 'fs'
+import {dirName} from './../index'
+import {QueryPayload, Status, QueryStatus} from './../types/types'
 
-import {QueryPayload, Status} from './../types'
+export const validateQueryFormat = (query: QueryPayload): QueryStatus => {
+  const {width, height, filename} = query
 
-type StatusAndQuery = QueryPayload & Status
+  if (!width || !height || !filename){
+    return {
+      status: 'error',
+      status_mesage: 'missing query'
+    }
+  }
+  console.log(query)
 
-// const checkFormat = (url: string) :void => {
-//   const params = new URLSearchParams(url)
-//   console.log({params})
-//   console.log(params.get('width'))
-//   console.log(params.get('height'))
-// }
 
-export const validateQueryFormat = (url: string): StatusAndQuery => {
-  const params = new URLSearchParams(url)
-  console.log({params})
-  const filename = '' //params.get('filename') as string
-  const width = Number(params.get('width'))
-  const height = Number(params.get('height'))
+  const status = {
+    status: 'success'
+  }
 
   return {
-    status: 'success',
-    filename, width, height
+    ...status,
+    ...query
   }
 }
 
-// export const checkIfFileExists = () => {
-// }
+export const validateIfFileExists = (query: QueryPayload): Status => {
+  const {filename} = query
+  const srcImg = `${dirName}/assets/full/${filename}.jpg`
+  if(fs.existsSync(srcImg)){
+    return {
+      status: 'success',
+      status_mesage: 'file available'
+    }
+  }else{
+    return {
+      status: 'error',
+      status_mesage: 'file not available'
+    }
+  }
+
+}

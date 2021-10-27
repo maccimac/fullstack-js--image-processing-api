@@ -4,8 +4,10 @@ export interface Status {
 }
 
 export interface QueryPayload {
-  filename: string
+  filename?: string
   srcImg?: string
-  height: number
-  width: number
+  height?: string | number
+  width?: string | number
 }
+
+export type QueryStatus = QueryPayload & Status

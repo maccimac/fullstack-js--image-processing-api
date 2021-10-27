@@ -9,6 +9,7 @@
     "format": "prettier --config .prettierrc '.' --write",
     "jasmine": "jasmine",
     "test": "npm run build && npm run bundle && npm run jasmine",
+    "dev": "npm run build && npm start",
     "bundle": "copyfiles -u 1 src/assets/full/*.jpg build/",
     "lint": "eslint . --ext .ts",
     "prettier-ts": "prettier --config .prettierrc  'src/**/*.ts' --write",

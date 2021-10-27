@@ -1,21 +1,17 @@
-import express from 'express'
-import sharp from 'sharp'
-import fs from 'fs'
-import { promises as fsPromises } from 'fs'
-import {dirName, samplePath} from './../index'
-import {validateQueryFormat} from './../utilities/validate'
-import {m_middleware} from './../middleware/middleware'
-
-export const m_router = express.Router()
-
-
-m_router.get('/images', m_middleware, (req: express.Request, res: express.Response) => {
-  console.log('no problems')
-  console.log(req.query)
-  res.send('validation passed')
-
-})
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.m_router = void 0;
+var express_1 = __importDefault(require("express"));
+var middleware_1 = require("./../middleware/middleware");
+exports.m_router = express_1.default.Router();
+exports.m_router.get('/images', middleware_1.m_middleware, function (req, res) {
+    console.log('no problems');
+    console.log(req.query);
+    res.send('validation passed');
+});
 /*let imgExists: boolean = false
 
 let mFile: string = ''
@@ -23,7 +19,6 @@ let mWidth: string | undefined = ''
 let mHeight: string | undefined = ''
 let srcImg: string = ''
 let targetImg: string = ''*/
-
 /*const middlewareResize = (req: express.Request, res: express.Response): void => {
     const mHost = req.get('host')
 

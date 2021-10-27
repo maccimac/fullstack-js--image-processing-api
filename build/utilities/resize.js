@@ -1,10 +1,5 @@
-import sharp from 'sharp'
-import fs from 'fs'
-import { promises as fsPromises } from 'fs'
-import {dirName} from './../index'
-import {QueryPayload, Status} from './../types/types'
-
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // export const resize = (payload: QueryPayload): Status => {
 //   const {filename, srcImg, height, width} = payload
 //

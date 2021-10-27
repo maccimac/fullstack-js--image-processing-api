@@ -35,19 +35,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs_1 = __importDefault(require("fs"));
-var index_1 = require("../index");
-it("Should have the new file", function () { return __awaiter(void 0, void 0, void 0, function () {
-    var fileName, srcImg, hasNewFile;
+exports.m_middleware = void 0;
+var validate_1 = require("./../utilities/validate");
+var m_middleware = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var query, formatCheck, fileCheck;
     return __generator(this, function (_a) {
-        fileName = 'beach';
-        srcImg = index_1.dirName + "/assets/full/" + fileName + ".jpg";
-        hasNewFile = fs_1.default.existsSync(srcImg);
-        expect(hasNewFile).toEqual(true);
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                query = req.query;
+                return [4 /*yield*/, (0, validate_1.validateQueryFormat)(query)];
+            case 1:
+                formatCheck = _a.sent();
+                if (formatCheck.status == 'error') {
+                    console.log('error: ' + formatCheck.status_mesage);
+                }
+                return [4 /*yield*/, (0, validate_1.validateIfFileExists)(query)];
+            case 2:
+                fileCheck = _a.sent();
+                if (fileCheck.status == 'error') {
+                    console.log('error: ' + fileCheck.status_mesage);
+                }
+                next();
+                return [2 /*return*/];
+        }
     });
-}); });
+}); };
+exports.m_middleware = m_middleware;
