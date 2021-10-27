@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.m_middleware = void 0;
+exports.validationMiddleware = void 0;
 var validate_1 = require("./../utilities/validate");
-var m_middleware = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+var validationMiddleware = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var query, formatCheck, fileCheck;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -48,17 +48,17 @@ var m_middleware = function (req, res, next) { return __awaiter(void 0, void 0, 
             case 1:
                 formatCheck = _a.sent();
                 if (formatCheck.status == 'error') {
-                    console.log('error: ' + formatCheck.status_mesage);
+                    res.send('error: ' + formatCheck.status_mesage);
                 }
                 return [4 /*yield*/, (0, validate_1.validateIfFileExists)(query)];
             case 2:
                 fileCheck = _a.sent();
                 if (fileCheck.status == 'error') {
-                    console.log('error: ' + fileCheck.status_mesage);
+                    res.send('error: ' + fileCheck.status_mesage);
                 }
                 next();
                 return [2 /*return*/];
         }
     });
 }); };
-exports.m_middleware = m_middleware;
+exports.validationMiddleware = validationMiddleware;

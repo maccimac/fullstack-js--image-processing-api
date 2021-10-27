@@ -7,9 +7,7 @@ exports.m_router = void 0;
 var express_1 = __importDefault(require("express"));
 var middleware_1 = require("./../middleware/middleware");
 exports.m_router = express_1.default.Router();
-exports.m_router.get('/images', middleware_1.m_middleware, function (req, res) {
-    console.log('no problems');
-    console.log(req.query);
+exports.m_router.get('/images', middleware_1.validationMiddleware, function (req, res) {
     res.send('validation passed');
 });
 /*let imgExists: boolean = false

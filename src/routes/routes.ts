@@ -4,14 +4,12 @@ import fs from 'fs'
 import { promises as fsPromises } from 'fs'
 import {dirName, samplePath} from './../index'
 import {validateQueryFormat} from './../utilities/validate'
-import {m_middleware} from './../middleware/middleware'
+import {validationMiddleware} from './../middleware/middleware'
 
 export const m_router = express.Router()
 
 
-m_router.get('/images', m_middleware, (req: express.Request, res: express.Response) => {
-  console.log('no problems')
-  console.log(req.query)
+m_router.get('/images', validationMiddleware, (req: express.Request, res: express.Response) => {
   res.send('validation passed')
 
 })
