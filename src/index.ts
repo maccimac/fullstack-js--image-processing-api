@@ -13,7 +13,7 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
 
-app.get('/', (req, res) => {
+app.get('/', (req: express.Request, res: express.Response) => {
     res.send(`
     <h1>Welcome to Image Processing API</h1>
     Sample endpoint:
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 
 
-app.get('/api', (req, res) => {
+app.get('/api', (req: express.Request, res: express.Response) => {
     res.send(msgInstruction)
 })
 
