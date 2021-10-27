@@ -5,11 +5,20 @@ const request = require('supertest')
 
 // CONNECTION TEST
 describe('Should connect to localhost:3000', () => {
-  it('Should connect and have correct properties', () => {
+  it('Should connect ok to main endpoint', () => {
     request(app)
       .get('/')
       .expect(200)
-      .expect('Content-Type', 'application/json; charset=utf-8')
+  })
+  it('Should connect ok to /api endpoint', () => {
+    request(app)
+      .get('/api')
+      .expect(200)
+  })
+  it('Should connect ok to /api/images endpoint', () => {
+    request(app)
+      .get('/api/images')
+      .expect(200)
   })
 })
 

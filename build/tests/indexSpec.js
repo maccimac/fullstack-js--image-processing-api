@@ -41,11 +41,20 @@ var validate_1 = require("./../utilities/validate");
 var request = require('supertest');
 // CONNECTION TEST
 describe('Should connect to localhost:3000', function () {
-    it('Should connect and have correct properties', function () {
+    it('Should connect ok to main endpoint', function () {
         request(index_1.app)
             .get('/')
-            .expect(200)
-            .expect('Content-Type', 'application/json; charset=utf-8');
+            .expect(200);
+    });
+    it('Should connect ok to /api endpoint', function () {
+        request(index_1.app)
+            .get('/api')
+            .expect(200);
+    });
+    it('Should connect ok to /api/images endpoint', function () {
+        request(index_1.app)
+            .get('/api/images')
+            .expect(200);
     });
 });
 // QUERY TEST
@@ -77,10 +86,4 @@ describe('Should have correct query and include source file', function () {
             }
         });
     }); });
-    /*it("Should have the new file", async () => {
-      const fileName = 'beach'
-      const srcImg = `${dirName}/assets/full/${fileName}.jpg`
-      const hasNewFile = fs.existsSync(srcImg)
-      expect(hasNewFile).toEqual(true)
-    });  */
 });
