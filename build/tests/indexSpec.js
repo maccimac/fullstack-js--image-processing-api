@@ -35,19 +35,52 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs_1 = __importDefault(require("fs"));
 var index_1 = require("../index");
-it("Should have the new file", function () { return __awaiter(void 0, void 0, void 0, function () {
-    var fileName, srcImg, hasNewFile;
-    return __generator(this, function (_a) {
-        fileName = 'beach';
-        srcImg = index_1.dirName + "/assets/full/" + fileName + ".jpg";
-        hasNewFile = fs_1.default.existsSync(srcImg);
-        expect(hasNewFile).toEqual(true);
-        return [2 /*return*/];
+var validate_1 = require("./../utilities/validate");
+var request = require('supertest');
+// CONNECTION TEST
+describe('Should connect to localhost:3000', function () {
+    it('Should connect and have correct properties', function () {
+        request(index_1.app)
+            .get('/')
+            .expect(200)
+            .expect('Content-Type', 'application/json; charset=utf-8');
     });
-}); });
+});
+// QUERY TEST
+describe('Should have correct query and include source file', function () {
+    var url = new URL(index_1.samplePath);
+    var queryString = url.search.substring(1);
+    var queryObject = JSON.parse('{"' + decodeURI(queryString).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
+    it('Should have correct queries', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var checkQuery;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, validate_1.validateQueryFormat)(queryObject)];
+                case 1:
+                    checkQuery = _a.sent();
+                    expect(checkQuery.status).toEqual('success');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('Should have available file', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var checkFile;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, validate_1.validateIfFileExists)(queryObject)];
+                case 1:
+                    checkFile = _a.sent();
+                    expect(checkFile.status).toEqual('success');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    /*it("Should have the new file", async () => {
+      const fileName = 'beach'
+      const srcImg = `${dirName}/assets/full/${fileName}.jpg`
+      const hasNewFile = fs.existsSync(srcImg)
+      expect(hasNewFile).toEqual(true)
+    });  */
+});
