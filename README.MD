@@ -9,5 +9,5 @@ TO TEST:
 `npm run test`
 
 ENDPOINT SAMPLES:
-`http://localhost:3000/api/images/beach?height=600&width=800`
-`http://localhost:3000/api/images/fitness?height=400&width=500`
+`http://localhost:3000/api/images?filename=beach&height=600&width=800`
+`http://localhost:3000/api/images?filename=fitness&height=400&width=500`
