@@ -60,6 +60,7 @@ var resize = function (payload) { return __awaiter(void 0, void 0, void 0, funct
                 };
             })
                 .catch(function (err) {
+                console.log({ err: err });
                 return {
                     status: 'error',
                     status_message: err

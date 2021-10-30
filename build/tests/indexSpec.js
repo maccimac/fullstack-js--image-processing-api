@@ -38,6 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../index");
 var validate_1 = require("./../utilities/validate");
+var resize_1 = require("./../utilities/resize");
+var cacheFile_1 = require("./../utilities/cacheFile");
 var request = require('supertest');
 // CONNECTION TEST
 describe('Should connect to localhost:3000', function () {
@@ -57,11 +59,11 @@ describe('Should connect to localhost:3000', function () {
             .expect(200);
     });
 });
+var url = new URL(index_1.samplePath);
+var queryString = url.search.substring(1);
+var queryObject = JSON.parse('{"' + decodeURI(queryString).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
 // QUERY TEST
 describe('Should have correct query and include source file', function () {
-    var url = new URL(index_1.samplePath);
-    var queryString = url.search.substring(1);
-    var queryObject = JSON.parse('{"' + decodeURI(queryString).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
     it('Should have correct queries', function () { return __awaiter(void 0, void 0, void 0, function () {
         var checkQuery;
         return __generator(this, function (_a) {
@@ -82,6 +84,33 @@ describe('Should have correct query and include source file', function () {
                 case 1:
                     checkFile = _a.sent();
                     expect(checkFile.status).toEqual('success');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+describe('Should successfully resize and save file', function () {
+    console.log(queryObject);
+    it('Should successfully resize file', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var resizeFile;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, resize_1.resize)(queryObject)];
+                case 1:
+                    resizeFile = _a.sent();
+                    expect(resizeFile.status).toEqual('success');
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('Should successfully saved file', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var fileAvailable;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, cacheFile_1.checkTargetFile)(queryObject)];
+                case 1:
+                    fileAvailable = _a.sent();
+                    expect(fileAvailable.status).toEqual('available');
                     return [2 /*return*/];
             }
         });

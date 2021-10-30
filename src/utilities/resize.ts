@@ -10,7 +10,6 @@ export const resize = async (payload: QueryPayload): Promise<Status> => {
   const {filename, height, width} = payload
 
   const srcImg = `${dirName}/assets/full/${filename}.jpg`
-
   const targetImg = `${dirName}/assets/thumb/${filename}-${width}x${height}.jpg`
 
     return sharp(srcImg)
@@ -24,6 +23,7 @@ export const resize = async (payload: QueryPayload): Promise<Status> => {
         }
       })
       .catch(err => {
+        console.log({err})
         return {
           status: 'error',
           status_message: err

@@ -5,7 +5,7 @@ import {dirName} from './../index'
 import {QueryPayload, Status} from './../types/types'
 
 
-export const checkCache = async (payload: QueryPayload): Promise<Status> => {
+export const checkTargetFile = async (payload: QueryPayload): Promise<Status> => {
   const {filename, height, width} = payload
 
   const targetImg = `${dirName}/assets/thumb/${filename}-${width}x${height}.jpg`

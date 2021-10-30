@@ -39,10 +39,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkCache = void 0;
+exports.checkTargetFile = void 0;
 var fs_1 = __importDefault(require("fs"));
 var index_1 = require("./../index");
-var checkCache = function (payload) { return __awaiter(void 0, void 0, void 0, function () {
+var checkTargetFile = function (payload) { return __awaiter(void 0, void 0, void 0, function () {
     var filename, height, width, targetImg;
     return __generator(this, function (_a) {
         filename = payload.filename, height = payload.height, width = payload.width;
@@ -62,4 +62,4 @@ var checkCache = function (payload) { return __awaiter(void 0, void 0, void 0, f
         return [2 /*return*/];
     });
 }); };
-exports.checkCache = checkCache;
+exports.checkTargetFile = checkTargetFile;

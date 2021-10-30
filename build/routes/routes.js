@@ -42,17 +42,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.m_router = void 0;
 var express_1 = __importDefault(require("express"));
 var resize_1 = require("./../utilities/resize");
+var cacheFile_1 = require("./../utilities/cacheFile");
 var cacheNode_1 = require("./../utilities/cacheNode");
 var middleware_1 = require("./../middleware/middleware");
 exports.m_router = express_1.default.Router();
 exports.m_router.get('/images', middleware_1.validationMiddleware, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var isCached, initResize;
+    var isCached, initResize, targetFileAvailable;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, (0, cacheNode_1.getFromCache)(req.query)];
             case 1:
                 isCached = _a.sent();
-                console.log({ isCached: isCached });
                 initResize = function () { return __awaiter(void 0, void 0, void 0, function () {
                     var resizeFile;
                     return __generator(this, function (_a) {
@@ -70,13 +70,23 @@ exports.m_router.get('/images', middleware_1.validationMiddleware, function (req
                         }
                     });
                 }); };
-                if (isCached.status == 'available') {
+                if (!(isCached.status == 'available')) return [3 /*break*/, 3];
+                return [4 /*yield*/, (0, cacheFile_1.checkTargetFile)(req.query)];
+            case 2:
+                targetFileAvailable = _a.sent();
+                if (targetFileAvailable.data) {
                     res.sendFile(isCached.data);
                 }
-                else if (isCached.status == 'unavailable') {
+                else {
+                    res.send(targetFileAvailable.status_message);
+                }
+                return [3 /*break*/, 4];
+            case 3:
+                if (isCached.status == 'unavailable') {
                     initResize();
                 }
-                return [2 /*return*/];
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); });
