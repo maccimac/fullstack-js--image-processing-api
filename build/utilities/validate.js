@@ -15,9 +15,10 @@ var validateQueryFormat = function (query) {
         return false;
     };
     if (!width || !height || !filename) {
+        var errorMsg = "missing query\n      " + (!filename ? ' -filename ' : '') + "\n      " + (!width ? ' -width ' : '') + "\n      " + (!height ? ' -height ' : '') + "\n    ";
         return {
             status: 'error',
-            status_message: 'missing query'
+            status_message: errorMsg
         };
     }
     else if (!isNumeric(height) || !isNumeric(width)) {

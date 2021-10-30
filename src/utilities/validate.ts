@@ -13,9 +13,14 @@ export const validateQueryFormat = (query: QueryPayload): QueryStatus => {
   }
 
   if (!width || !height || !filename){
+    const errorMsg = `missing query
+      ${!filename ? ' -filename ' : ''}
+      ${!width ? ' -width ' : '' }
+      ${!height ? ' -height ' : ''}
+    `
     return {
       status: 'error',
-      status_message: 'missing query'
+      status_message: errorMsg
     }
   }else if (!isNumeric(height as string) || !isNumeric(width as string)) {
     return {
@@ -34,7 +39,7 @@ export const validateIfFileExists = (query: QueryPayload): Status => {
   const {filename} = query
   const srcImg = `${dirName}/assets/full/${filename}.jpg`
   fs.existsSync(srcImg)
-  
+
   if(fs.existsSync(srcImg)){
     return {
       status: 'success',
