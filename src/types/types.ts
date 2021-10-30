@@ -11,3 +11,7 @@ export interface QueryPayload {
 }
 
 export type QueryStatus = QueryPayload & Status
+
+export interface CacheResult {
+  targetImg: string
+}

@@ -3,6 +3,7 @@ import fs from 'fs'
 import { promises as fsPromises } from 'fs'
 import {dirName} from './../index'
 import {QueryPayload, Status} from './../types/types'
+import {storeToCache} from './../utilities/cacheNode'
 
 
 export const resize = async (payload: QueryPayload): Promise<Status> => {
@@ -16,7 +17,7 @@ export const resize = async (payload: QueryPayload): Promise<Status> => {
       .resize(Number(width), Number(height))
       .toFile(targetImg)
       .then((data) =>{
-        console.log(data)
+        storeToCache(payload)
         return {
           status: 'success',
           data: targetImg

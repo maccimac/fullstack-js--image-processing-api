@@ -6,13 +6,18 @@ import {dirName, samplePath} from './../index'
 import {validateQueryFormat} from './../utilities/validate'
 import {resize} from './../utilities/resize'
 import {checkCache} from './../utilities/cache'
+import {storeToCache, getFromCache} from './../utilities/cacheNode'
 import {validationMiddleware} from './../middleware/middleware'
+
+
 
 export const m_router = express.Router()
 
 m_router.get('/images', validationMiddleware, async (req: express.Request, res: express.Response) => {
 
-  const isCached = await checkCache(req.query)
+  // const isCached = await checkCache(req.query)
+  const isCached = await getFromCache(req.query)
+  console.log({isCached})
 
   const initResize = async () =>{
     const resizeFile = await resize(req.query)

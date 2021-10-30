@@ -39,44 +39,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.m_router = void 0;
-var express_1 = __importDefault(require("express"));
-var resize_1 = require("./../utilities/resize");
-var cacheNode_1 = require("./../utilities/cacheNode");
-var middleware_1 = require("./../middleware/middleware");
-exports.m_router = express_1.default.Router();
-exports.m_router.get('/images', middleware_1.validationMiddleware, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var isCached, initResize;
+exports.getFromCache = exports.storeToCache = void 0;
+var index_1 = require("./../index");
+var node_cache_1 = __importDefault(require("node-cache"));
+var myCache = new node_cache_1.default();
+var storeToCache = function (payload) {
+    var filename = payload.filename, height = payload.height, width = payload.width;
+    var cacheKey = filename + "-" + width + "x" + height;
+    var cacheProps = { targetImg: index_1.dirName + "/assets/thumb/" + filename + "-" + width + "x" + height + ".jpg" };
+    var success = myCache.set(cacheKey, cacheProps, 10000);
+};
+exports.storeToCache = storeToCache;
+var getFromCache = function (payload) { return __awaiter(void 0, void 0, void 0, function () {
+    var filename, height, width, cacheKey, cacheVal;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, cacheNode_1.getFromCache)(req.query)];
+            case 0:
+                filename = payload.filename, height = payload.height, width = payload.width;
+                cacheKey = filename + "-" + width + "x" + height;
+                return [4 /*yield*/, myCache.get(cacheKey)];
             case 1:
-                isCached = _a.sent();
-                console.log({ isCached: isCached });
-                initResize = function () { return __awaiter(void 0, void 0, void 0, function () {
-                    var resizeFile;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, (0, resize_1.resize)(req.query)];
-                            case 1:
-                                resizeFile = _a.sent();
-                                if (resizeFile.status == 'success') {
-                                    res.sendFile(resizeFile.data);
-                                }
-                                else {
-                                    res.send(resizeFile.status_message);
-                                }
-                                return [2 /*return*/];
-                        }
-                    });
-                }); };
-                if (isCached.status == 'available') {
-                    res.sendFile(isCached.data);
+                cacheVal = _a.sent();
+                if (cacheVal && cacheVal.targetImg) {
+                    return [2 /*return*/, {
+                            status: 'available',
+                            data: cacheVal.targetImg
+                        }];
                 }
-                else if (isCached.status == 'unavailable') {
-                    initResize();
+                else {
+                    return [2 /*return*/, {
+                            status: 'unavailable',
+                            status_message: 'cache is undefined'
+                        }];
                 }
                 return [2 /*return*/];
         }
     });
-}); });
+}); };
+exports.getFromCache = getFromCache;

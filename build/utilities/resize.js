@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.resize = void 0;
 var sharp_1 = __importDefault(require("sharp"));
 var index_1 = require("./../index");
+var cacheNode_1 = require("./../utilities/cacheNode");
 var resize = function (payload) { return __awaiter(void 0, void 0, void 0, function () {
     var filename, height, width, srcImg, targetImg;
     return __generator(this, function (_a) {
@@ -52,7 +53,7 @@ var resize = function (payload) { return __awaiter(void 0, void 0, void 0, funct
                 .resize(Number(width), Number(height))
                 .toFile(targetImg)
                 .then(function (data) {
-                console.log(data);
+                (0, cacheNode_1.storeToCache)(payload);
                 return {
                     status: 'success',
                     data: targetImg
